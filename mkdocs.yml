@@ -1,8 +1,8 @@
 site_name: bareASGI-static
 site_description: Static file support for bareASGI
 
-repo_name: rob-blackbourn/bareASGI-static
-repo_url: https://github.com/rob-blackbourn/bareASGI-static
+repo_name: bareASGI/bareASGI-static
+repo_url: https://github.com/bareASGI/bareASGI-static
 edit_uri: ""
 
 theme:
