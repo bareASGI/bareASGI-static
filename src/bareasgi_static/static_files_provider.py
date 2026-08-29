@@ -2,7 +2,6 @@
 
 import os
 import stat
-from typing import List, Optional, Tuple
 
 from aiofiles.os import stat as aio_stat
 from bareasgi import Application, HttpRequest, HttpResponse
@@ -18,22 +17,23 @@ class StaticFilesProvider:
             self,
             source_folder: str,
             *,
-            path_variable: Optional[str] = None,
+            path_variable: str | None = None,
             check_source_folder: bool = True,
-            index_filename: Optional[str] = None,
-            headers: Optional[List[Tuple[bytes, bytes]]] = None,
+            index_filename: str | None = None,
+            headers: list[tuple[bytes, bytes]] | None = None,
     ) -> None:
         """A static file provider.
 
         Args:
             source_folder (str): Where to find the files to serve.
-            path_variable (Optional[str], optional): A path variable to capture
+            path_variable (str | None, optional): A path variable to capture
                 the mount point. Defaults to None.
             check_source_folder (bool, optional): If True check the source
                 folder exists. Defaults to True.
-            index_filename (Optional[str], optional): An optional index file
+            index_filename (str | None, optional): An optional index file
                 name. Defaults to None.
-            headers (Optional[Headers], optional): The headers. Defaults to None.
+            headers (list[tuple[bytes, bytes]] | None, optional): The headers.
+                Defaults to None.
 
         Raises:
             RuntimeError: If the source folder does not exist.
@@ -106,8 +106,8 @@ def add_static_file_provider(
         *,
         mount_point: str = '/',
         check_source_folder: bool = True,
-        index_filename: Optional[str] = None,
-        headers: Optional[List[Tuple[bytes, bytes]]] = None
+        index_filename: str | None = None,
+        headers: list[tuple[bytes, bytes]] | None = None
 ) -> None:
     """Add static file support.
 
@@ -118,7 +118,7 @@ def add_static_file_provider(
             Defaults to '/'.
         check_source_folder (bool, optional): If True check the source folder
             exists. Defaults to True.
-        index_filename (Optional[str], optional): An optional index file name.
+        index_filename (str | None, optional): An optional index file name.
             Defaults to None.
         headers (Optional[Headers], optional): The headers. Defaults to None.
 

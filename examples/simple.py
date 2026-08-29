@@ -19,4 +19,4 @@ add_static_file_provider(app, os.path.join(
     here, 'simple_www'), index_filename='index.html')
 
 config = Config()
-asyncio.run(serve(app, config))
+asyncio.run(serve(app, config))  # type: ignore

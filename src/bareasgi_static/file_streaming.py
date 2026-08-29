@@ -5,14 +5,7 @@ import hashlib
 import stat
 import os
 from time import mktime, struct_time
-from typing import (
-    AsyncIterable,
-    Iterable,
-    List,
-    Optional,
-    Tuple,
-    cast
-)
+from typing import AsyncIterable, Final, Iterable, Sequence, cast
 from mimetypes import guess_type
 
 import aiofiles
@@ -21,9 +14,10 @@ import aiofiles.os
 from bareasgi import HttpRequest, HttpResponse
 from bareutils import text_writer, header, response_code
 
-CHUNK_SIZE = 4096
 
-NOT_MODIFIED_HEADERS = (
+CHUNK_SIZE: Final[int] = 4096
+
+NOT_MODIFIED_HEADERS: Final[Sequence[bytes]] = (
     b"cache-control",
     b"content-location",
     b"date",
@@ -40,8 +34,8 @@ def _stat_to_etag(value: os.stat_result) -> str:
 
 
 def _is_not_modified(
-        request_headers: Iterable[Tuple[bytes, bytes]],
-        response_headers: Iterable[Tuple[bytes, bytes]]
+        request_headers: Iterable[tuple[bytes, bytes]],
+        response_headers: Iterable[tuple[bytes, bytes]]
 ) -> bool:
     if request_headers is None or response_headers is None:
         return False
@@ -88,10 +82,10 @@ async def file_response(
         request: HttpRequest,
         status: int,
         path: str,
-        headers: Optional[List[Tuple[bytes, bytes]]] = None,
-        content_type: Optional[str] = None,
-        filename: Optional[str] = None,
-        check_modified: Optional[bool] = False
+        headers: list[tuple[bytes, bytes]] | None = None,
+        content_type: str | None = None,
+        filename: str | None = None,
+        check_modified: bool | None = False
 ) -> HttpResponse:
     """A utility method to create a file response.
 
@@ -99,11 +93,12 @@ async def file_response(
         scope (Scope): The ASGI scope.
         status (int): The HTTP status code.
         path (str): The path to the file.
-        headers (Optional[Headers], optional): The headers. Defaults to None.
-        content_type (Optional[str], optional): The content type.. Defaults to
+        headers (list[tuple[bytes, bytes]] | None, optional): The headers.
+            Defaults to None.
+        content_type (str | None, optional): The content type.. Defaults to
             None.
-        filename (Optional[str], optional): The filename. Defaults to None.
-        check_modified (Optional[bool], optional): If True check for
+        filename (str | None, optional): The filename. Defaults to None.
+        check_modified (bool | None, optional): If True check for
             modifications to the file. Defaults to False.
 
     Raises:
