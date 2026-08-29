@@ -1,6 +1,6 @@
 [project]
 name = "bareASGI-static"
-version = "5.0.0-alpha.0"
+version = "5.0.0"
 description = "Static file support for bareASGI"
 authors = [
     { name = "Rob Blackbourn", email = "rob.blackbourn@gmail.com" }
